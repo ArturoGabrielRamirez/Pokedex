@@ -42,7 +42,7 @@ const footerNav = [
 
 function createNavBar(container, links) {
   const nav = document.createElement("nav")
-  nav.className = "nav-container__nav"
+  nav.className = "nav-container__nav flex"
   links.forEach((link) => {
     const navLink = document.createElement("a")
     const navIcon = document.createElement("img")
@@ -57,31 +57,27 @@ function createNavBar(container, links) {
 }
 
 export function impLayOut() {
-  const layOut = document.getElementById("layOut")
-  const header = document.createElement("header")
+  const header = document.querySelector(".header")
   const titleContainer = document.createElement("div")
   const title = document.createElement("h1")
-  const main = document.createElement("main")
-  const containerCards = document.createElement("section")
+  const main = document.querySelector(".main")
+  const containerCard = document.querySelector(".section")
   const mainTitle = document.createElement("h2")
   const inputPokemon = document.createElement("input")
   const buttonCall = document.createElement("button")
-  const cards = document.createElement("div")
-  const footer = document.createElement("footer")
+  const card = document.createElement("div")
+  const footer = document.querySelector(".footer")
 
   buttonCall.addEventListener("click", callAPI)
 
-  layOut.className = "lay-out"
-  header.className = "header"
   titleContainer.className = "title-container"
   title.className = "title-container__title"
-  main.className = "main"
   mainTitle.className = "main__title"
   inputPokemon.className = "main__input"
   buttonCall.className = "main__button"
-  containerCards.className = "container-cards"
-  cards.className = "container-cards__cards"
-  footer.className = "footer"
+  containerCard.classList.add("container-card")
+  card.className = "container-card__card"
+
 
   title.textContent = "Poke-Poke-Dex"
   mainTitle.textContent = "Poke-Poke-Mon"
@@ -92,11 +88,11 @@ export function impLayOut() {
   createNavBar(header, navBar)
   createNavBar(footer, footerNav)
 
-  main.append(mainTitle, inputPokemon, buttonCall, containerCards)
-  layOut.append(header, main, footer)
+  main.append(containerCard)
+  containerCard.prepend(mainTitle, inputPokemon, buttonCall, card)
   header.append(titleContainer)
   titleContainer.append(title)
-  containerCards.append(cards)
+
 
 }
 
@@ -115,14 +111,17 @@ export const callAPI = () => {
 }
 
 export const createCardPokemon = (data) => {
+  const containerCard = document.querySelector(".container-card__card")
+
+  containerCard.innerHTML = ""
+
   const imagePokemon = document.createElement("img")
   const namePokemon = document.createElement("h3")
-  const containerCards = document.querySelector(".container-cards__cards")
 
   imagePokemon.src = data.sprites.front_default
   namePokemon.textContent = data.name
 
-  containerCards.append(imagePokemon, namePokemon)
+  containerCard.append(imagePokemon, namePokemon)
 }
 
 

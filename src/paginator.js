@@ -8,8 +8,8 @@ let countInfo = 1
 
 const elementForPage = 20
 
-const layOut = document.getElementById("layOut")
-const containerCards2 = document.createElement("section")
+
+const containerCard = document.querySelector(".section")
 const articleList = document.createElement("div")
 const containerButtons = document.createElement("div")
 const buttonBack = document.createElement("button")
@@ -24,12 +24,10 @@ containerButtons.className = "container-buttons"
 buttonBack.textContent = "Atrás"
 infoPage.textContent = "1/10"
 buttonNext.textContent = "Siguiente"
-containerCards2.className = "container-cards"
 matrizArticles.className = "matriz-articles"
 articleList.className = "article-list flex flex-wrap gap-12"
 
-layOut.append(containerCards2)
-containerCards2.append(articleList, containerButtons)
+containerCard.append(articleList, containerButtons)
 containerButtons.append(buttonBack, infoPage, buttonNext)
 
 buttonBack.addEventListener("click", prevPage)
