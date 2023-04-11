@@ -1,46 +1,11 @@
-/* voy a hacer bem */
-const navBar = [
-  {
-    name: "link1",
-    image: "/img/open-pokedex.svg",
-    link: "#"
-  },
-  {
-    name: "link2",
-    image: "/img/psyduck_icon-icons.com_67509.png",
-    link: "#"
-  },
-  {
-    name: "link3",
-    image: "/img/Pokemon_Trainer_Girl_icon-icons.com_67515.png",
-    link: "#"
-  },
-  {
-    name: "link4",
-    image: "/img/Pokemon_Trainer_Boy_icon-icons.com_67516.png",
-    link: "#"
-  },
-]
+import { typesNames, navBar, footerNav } from "./dataUtils"
 
-const footerNav = [
-  {
-    name: "Instagram",
-    image: "/img/instagram.png",
-    link: "https://www.instagram.com/arturito_/"
-  },
-  {
-    name: "Twitter",
-    image: "/img/instagram.png",
-    link: "https://twitter.com/Arturito_"
-  },
-  {
-    name: "Youtube",
-    image: "/img/instagram.png",
-    link: "https://www.youtube.com/channel/UC0ZQZ1X1Z0ZQZ1X1Z0ZQZ1X"
-  },
-]
 
-function createNavBar(container, links) {
+
+
+export function createNavBar(container, links) {
+  const header = document.querySelector(".header")
+  const footer = document.querySelector(".footer")
   const nav = document.createElement("nav")
   nav.className = "nav-container__nav flex"
   links.forEach((link) => {
@@ -50,10 +15,16 @@ function createNavBar(container, links) {
     navIcon.className = "nav-container__nav__link__icon"
     navLink.href = link.link
     navIcon.src = link.image
+    
+    container == header ? navIcon.classList.add("w-12") : navIcon.classList.add("w-6")
+    
+    
     navLink.append(navIcon)
     nav.append(navLink)
   })
-  container.append(nav)
+  
+  container == header ? header.append(nav) : footer.append(nav)
+  
 }
 
 export function impLayOut() {
@@ -124,6 +95,20 @@ export const createCardPokemon = (data) => {
   containerCard.append(imagePokemon, namePokemon)
 }
 
+
+export function createChips(article, types) {
+  types.forEach(
+    (type) => {
+      const chipType = document.createElement("div")
+      const typePokemon = document.createElement("p")
+      chipType.className = `chip-type flex justify-center items-center m-1 font-medium py-1 px-2 text-white rounded-full text-white ${typesNames[type.type.name]}`
+      typePokemon.className = "article__type"
+      typePokemon.textContent = type.type.name
+      article.append(chipType)
+      chipType.append(typePokemon)
+    }
+  )
+}
 
 
 

@@ -1,3 +1,6 @@
+import { createChips } from "./utils"
+
+
 let cards = []
 let count = 0
 let actualPage = 1
@@ -56,16 +59,14 @@ function obtainPagesCuts() {
 function obtainTotalPages() {
   return Math.ceil(count / cards.length)
 }
-function nextPage() {
-  countInfo = countInfo + 1
-  console.log(actualPage)
-  fetchForCards(createCards)
-
-}
-
 function prevPage() {
   countInfo = countInfo - 1
   url = prevUrl
+  fetchForCards(createCards)
+}
+
+function nextPage() {
+  countInfo = countInfo + 1
   fetchForCards(createCards)
 }
 
@@ -90,16 +91,27 @@ export const createCards = (dataCard) => {
   const article = document.createElement("article")
   const imagePokemon = document.createElement("img")
   const namePokemon = document.createElement("h3")
+  const butonLinkDetail = document.createElement("button")
+  const linkDetailPokemon = document.createElement("a")
 
+  createChips(article, dataCard.types)
+
+
+  linkDetailPokemon.href = `./detail.html?name=${dataCard.name}`
+  linkDetailPokemon.className = "link-detail"
+  butonLinkDetail.className = "button-link-detail"
   article.className = "article"
   imagePokemon.className = "article__image"
   namePokemon.className = "article__name"
-
+  
   imagePokemon.src = dataCard.sprites.front_default
   namePokemon.textContent = dataCard.name
+  linkDetailPokemon.textContent = "Ver más detalles"
 
   article.append(imagePokemon, namePokemon)
   articleList.append(article)
+  butonLinkDetail.append(linkDetailPokemon)
+  article.append(butonLinkDetail)
 
 }
 
@@ -107,8 +119,8 @@ function createPages(createCards) {
   articleList.innerHTML = ""
 
   const pageCut = obtainPagesCuts(actualPage)
-  
-  
+
+
   infoPage.textContent = `${countInfo}/${obtainTotalPages()}`
 
   pageCut.forEach((data) => {
@@ -116,6 +128,7 @@ function createPages(createCards) {
       .then(response => response.json())
       .then(data => {
         createCards(data)
+
       })
   })
   configButtons()
